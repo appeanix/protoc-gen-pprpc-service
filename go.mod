@@ -1,4 +1,4 @@
-module protoc-gen-pprpc-service
+module github.com/appeanix/protoc-gen-pprpc-service
 
 go 1.17
 
