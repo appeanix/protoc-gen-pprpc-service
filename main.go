@@ -92,13 +92,20 @@ func main() {
 			func transformTwirpError(err error) `, twirpIdent(gf, "Error"), `{
 				twerr := twirp.NewError(twirp.Internal, err.Error())
 				if domainErr, ok := err.(`, domainIdent(gf, "Error"), `); ok {
-					twerr = twerr.WithMeta("domainCode", fmt.Sprintf("%d", domainErr.Code))
+					twerr = twerr.WithMeta("domainCode", `, fmtIdent(gf, "Sprintf"), `("%d", domainErr.Code))
 				}
 				return twirp.WrapError(twerr, err)
 			}`)
 		}
 
 		return nil
+	})
+}
+
+func fmtIdent(gf *protogen.GeneratedFile, ident string) string {
+	return gf.QualifiedGoIdent(protogen.GoIdent{
+		GoName:       ident,
+		GoImportPath: protogen.GoImportPath("fmt"),
 	})
 }
 
