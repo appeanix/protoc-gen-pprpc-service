@@ -74,6 +74,8 @@ func main() {
 
 					gf.P("if ucOut, err = service.UseCase.", method.GoName, "(ucIn); err != nil {")
 					gf.P("  return nil, transformTwirpError(err)")
+					gf.P("} else if ucOut == nil {")
+					gf.P("	return nil, transformTwirpError(domain.ErrNotFound)")
 					gf.P("}")
 					gf.P()
 
